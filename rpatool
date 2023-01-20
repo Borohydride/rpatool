@@ -86,6 +86,12 @@ class RenPyArchive:
     def __del__(self):
         if self.handle is not None:
             self.handle.close()
+    
+    def __enter__(self):
+        return self
+    
+    def __exit__(self,exec_type,exec_value,exec_tb):
+        self.__del__()
 
     # Determine archive version.
     def get_version(self):
@@ -310,7 +316,7 @@ class RenPyArchive:
         # Reload the file in our inner database.
         self.load(filename)
 
-if __name__ == "__main__":
+def __main__():
     import argparse
 
     parser = argparse.ArgumentParser(
@@ -338,7 +344,7 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--verbose', action='store_true', help='Be a bit more verbose while performing operations.')
     parser.add_argument('-V', '--version', action='version', version='rpatool v0.8', help='Show version information.')
     arguments = parser.parse_args()
-
+    print(arguments)
     # Determine RPA version.
     if arguments.two:
         version = 2
@@ -466,3 +472,5 @@ if __name__ == "__main__":
         print('No operation given :(')
         print('Use {0} --help for usage details.'.format(sys.argv[0]))
 
+if __name__=='__main__':
+    __main__()

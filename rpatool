@@ -373,7 +373,7 @@ if __name__ == "__main__":
                 output = _unicode(arguments.archive)
 
     # Normalize files.
-    if len(arguments.files) > 0 and isinstance(arguments.files[0], list):
+    if len(arguments.files) > 0 and isinstance(arguments.files[0], type([])):
         arguments.files = arguments.files[0]
 
     try:
